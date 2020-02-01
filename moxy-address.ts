@@ -38,9 +38,14 @@ const parse = (address: string) => {
                 address = parts.map((p) => p.trim()).join('\n')
             }
         } else {
-            const words = address.split(' ')
-            addr = Object.assign(addr, parseCityStateZip(words.slice(-3).join(' ')))
-            const rest = words.slice(0, words.length - 3)
+            let rest
+            if (address.match(/[0-9]{5}/g)) {
+                const words = address.split(' ')
+                addr = Object.assign(addr, parseCityStateZip(words.slice(-3).join(' ')))
+                rest = words.slice(0, words.length - 3)
+            } else {
+                rest = address.split(' ')
+            }
 
             let s2p: number = 0
             rest.some((aw: string, index: number) => {
@@ -150,3 +155,5 @@ export class MoxyAddress {
 }
 
 export default MoxyAddress
+
+console.log(MoxyAddress.parse('123 Main St. APT 3'))
