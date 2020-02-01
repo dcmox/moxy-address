@@ -30,9 +30,15 @@ var parse = function (address) {
             }
         }
         else {
-            var words = address.split(' ');
-            addr = Object.assign(addr, parseCityStateZip(words.slice(-3).join(' ')));
-            var rest = words.slice(0, words.length - 3);
+            var rest = void 0;
+            if (address.match(/[0-9]{5}/g)) {
+                var words = address.split(' ');
+                addr = Object.assign(addr, parseCityStateZip(words.slice(-3).join(' ')));
+                rest = words.slice(0, words.length - 3);
+            }
+            else {
+                rest = address.split(' ');
+            }
             var s2p_1 = 0;
             rest.some(function (aw, index) {
                 if (street2prefixes.indexOf(aw.toUpperCase()) > -1) {
@@ -163,3 +169,4 @@ var MoxyAddress = /** @class */ (function () {
 }());
 exports.MoxyAddress = MoxyAddress;
 exports["default"] = MoxyAddress;
+console.log(MoxyAddress.parse('123 Main St. APT 3'));
