@@ -86,19 +86,3 @@ describe('moxy-address test suite', () => {
         })
     })
 })
-
-// console.log(1, extractAddress('Daniel Moxon 815 Livingston St. NE Lacey WA 98516'))
-// console.log(2, extractAddress('1135 Morraine View Dr APT #3 Madison WI 53719'))
-// console.log(3, extractAddress('1135 Morraine View Dr, APT #3, Madison WI, 53719'))
-// console.log(4, extractAddress(`1135 Morraine View Dr
-// APT #3
-// Madison WI 53719`))
-// //Max 35 characters per line
-// console.log(5, extractAddress(`Daniel Moxon
-// Programming Designs
-// 1135 Morraine View Dr
-// APT #3
-// Madison WI 53719`))
-
-// console.log(formatAddress('Daniel Moxon 815 Livingston St. NE Lacey WA 98516'))
-// console.log(formatAddress('Daniel Moxon 1135 Morraine View Dr APT #3 Madison WI 53719-5310', true))

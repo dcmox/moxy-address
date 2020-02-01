@@ -1,6 +1,9 @@
 "use strict";
 exports.__esModule = true;
 var parse = function (address) {
+    if (!address.length) {
+        throw new Error('Invalid address string!');
+    }
     var addr = {
         city: '',
         company: '',

@@ -9,6 +9,7 @@ interface IAddress {
 }
 
 const parse = (address: string) => {
+    if (!address.length) { throw new Error('Invalid address string!') }
     let addr: IAddress = {
         city: '',
         company: '',
@@ -46,7 +47,7 @@ const parse = (address: string) => {
             } else {
                 rest = address.split(' ')
             }
-            
+
             let s2p: number = 0
             rest.some((aw: string, index: number) => {
                 if (street2prefixes.indexOf(aw.toUpperCase()) > -1) {
