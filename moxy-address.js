@@ -16,7 +16,8 @@ var parse = function (address) {
     var order = ['name', 'company', 'street1', 'street2', 'cityStateZip'];
     var street2prefixes = ['SUITE', 'APT', 'STE', 'POB', 'PO', 'PO BOX', 'UNIT', 'BLDG', 'ROOM'];
     var street1postfixes = ['N', 'E', 'S', 'W', 'NE', 'NW', 'SE',
-        'SW', 'DR', 'RD', 'DRIVE', 'ROAD', 'LN', 'LANE', 'ST', 'STREET', 'AVE', 'AVENUE'];
+        'SW', 'DR', 'RD', 'DRIVE', 'ROAD', 'LN', 'LANE', 'ST', 'STREET', 'AVE',
+        'AVENUE', 'CT', 'COURT', 'CIR', 'CIRCLE'];
     address = address.replace(/\./g, '').replace(/  /g, '');
     if (address.indexOf('\n') === -1) {
         if (address.indexOf(',') > -1) { // break on comma if available
@@ -121,7 +122,6 @@ var parse = function (address) {
                     addr = Object.assign(addr, parseCityStateZip(parts[p++]));
                 }
                 else {
-                    console.log(order[p], parts[p]);
                     addr[order[p]] = parts[p++];
                 }
             }
@@ -172,4 +172,3 @@ var MoxyAddress = /** @class */ (function () {
 }());
 exports.MoxyAddress = MoxyAddress;
 exports["default"] = MoxyAddress;
-console.log(MoxyAddress.parse('123 Main St. APT 3'));

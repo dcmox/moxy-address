@@ -23,7 +23,8 @@ const parse = (address: string) => {
     const order: string[] = ['name', 'company', 'street1', 'street2', 'cityStateZip']
     const street2prefixes: string[] = ['SUITE', 'APT', 'STE', 'POB', 'PO', 'PO BOX', 'UNIT', 'BLDG', 'ROOM']
     const street1postfixes: string[] = ['N', 'E', 'S', 'W', 'NE', 'NW', 'SE',
-        'SW', 'DR', 'RD', 'DRIVE', 'ROAD', 'LN', 'LANE', 'ST', 'STREET', 'AVE', 'AVENUE']
+        'SW', 'DR', 'RD', 'DRIVE', 'ROAD', 'LN', 'LANE', 'ST', 'STREET', 'AVE',
+        'AVENUE', 'CT', 'COURT', 'CIR', 'CIRCLE']
 
     address = address.replace(/\./g, '').replace(/  /g, '')
     if (address.indexOf('\n') === -1) {
@@ -110,7 +111,6 @@ const parse = (address: string) => {
                 if (order[p] === 'cityStateZip') {
                     addr = Object.assign(addr, parseCityStateZip(parts[p++]))
                 } else {
-                    console.log(order[p], parts[p])
                     addr[order[p]] = parts[p++]
                 }
             }
@@ -121,7 +121,6 @@ const parse = (address: string) => {
 
 export const format = (address: string, format: boolean = false) => {
     const addr: IAddress = parse(address)
-    console.log(addr)
     return format
     ? `${addr.name}\n${addr.company}\n${addr.street1}\n${addr.street2}\n${addr.city}, ${addr.state} ${addr.zip}`
         .replace(/\n\n/g, '\n').replace(/[^0-9a-z \n\-]/gi, '').trim().toUpperCase()
@@ -156,5 +155,3 @@ export class MoxyAddress {
 }
 
 export default MoxyAddress
-
-console.log(MoxyAddress.parse('123 Main St. APT 3'))

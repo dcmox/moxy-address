@@ -1,6 +1,6 @@
 {
   "name": "moxy-address",
-  "version": "0.5.2",
+  "version": "0.5.3",
   "private": false,
   "description": "Moxy Address - Parse US Postal addresses",
   "main": "moxy-address.js",
