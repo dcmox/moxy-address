@@ -13,14 +13,52 @@ var parse = function (address) {
         street2: '',
         zip: ''
     };
-    var order = ['name', 'company', 'street1', 'street2', 'cityStateZip'];
-    var street2prefixes = ['SUITE', 'APT', 'STE', 'POB', 'PO', 'PO BOX', 'UNIT', 'BLDG', 'ROOM'];
-    var street1postfixes = ['N', 'E', 'S', 'W', 'NE', 'NW', 'SE',
-        'SW', 'DR', 'RD', 'DRIVE', 'ROAD', 'LN', 'LANE', 'ST', 'STREET', 'AVE',
-        'AVENUE', 'CT', 'COURT', 'CIR', 'CIRCLE'];
+    var order = [
+        'name',
+        'company',
+        'street1',
+        'street2',
+        'cityStateZip',
+    ];
+    var street2prefixes = [
+        'SUITE',
+        'APT',
+        'STE',
+        'POB',
+        'PO',
+        'PO BOX',
+        'UNIT',
+        'BLDG',
+        'ROOM',
+    ];
+    var street1postfixes = [
+        'N',
+        'E',
+        'S',
+        'W',
+        'NE',
+        'NW',
+        'SE',
+        'SW',
+        'DR',
+        'RD',
+        'DRIVE',
+        'ROAD',
+        'LN',
+        'LANE',
+        'ST',
+        'STREET',
+        'AVE',
+        'AVENUE',
+        'CT',
+        'COURT',
+        'CIR',
+        'CIRCLE',
+    ];
     address = address.replace(/\./g, '').replace(/  /g, '');
     if (address.indexOf('\n') === -1) {
-        if (address.indexOf(',') > -1) { // break on comma if available
+        if (address.indexOf(',') > -1) {
+            // break on comma if available
             var parts = address.split(',');
             if (parts.length === 2) {
                 addr = Object.assign(addr, parseCityStateZip(parts[1]));
@@ -132,12 +170,15 @@ var parse = function (address) {
 exports.format = function (address, format) {
     if (format === void 0) { format = false; }
     var addr = parse(address);
-    console.log(addr);
     return format
         ? (addr.name + "\n" + addr.company + "\n" + addr.street1 + "\n" + addr.street2 + "\n" + addr.city + ", " + addr.state + " " + addr.zip)
-            .replace(/\n\n/g, '\n').replace(/[^0-9a-z \n\-]/gi, '').trim().toUpperCase()
+            .replace(/\n\n/g, '\n')
+            .replace(/[^0-9a-z \n\-]/gi, '')
+            .trim()
+            .toUpperCase()
         : (addr.name + "\n" + addr.company + "\n" + addr.street1 + "\n" + addr.street2 + "\n" + addr.city + ", " + addr.state + " " + addr.zip)
-            .replace(/\n\n/g, '\n').trim();
+            .replace(/\n\n/g, '\n')
+            .trim();
 };
 var parseCityStateZip = function (line) {
     var parts = line.split(' ');
@@ -159,16 +200,8 @@ var parseCityStateZip = function (line) {
         };
     }
 };
-var MoxyAddress = /** @class */ (function () {
-    function MoxyAddress() {
-    }
-    MoxyAddress.parseCityStateZip = function (line) { return parseCityStateZip(line); };
-    MoxyAddress.format = function (address, strictFormat) {
-        if (strictFormat === void 0) { strictFormat = false; }
-        return exports.format(address, strictFormat);
-    };
-    MoxyAddress.parse = function (address) { return parse(address); };
-    return MoxyAddress;
-}());
-exports.MoxyAddress = MoxyAddress;
-exports["default"] = MoxyAddress;
+module.exports = {
+    format: exports.format,
+    parse: parse,
+    parseCityStateZip: parseCityStateZip
+};
